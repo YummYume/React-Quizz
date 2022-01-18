@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class CreateQuizz extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class CreateQuizz extends React.Component {
                 fourthAnswer: '',
                 correctAnswer: 1
             },
-            selectedAnswer: 0
+            selectedQuestion: 0
         };
         this.onQuestionTitleChange = this.onQuestionTitleChange.bind(this);
         this.onFirstAnswerChange = this.onFirstAnswerChange.bind(this);
@@ -21,7 +21,7 @@ class CreateQuizz extends React.Component {
         this.onFourthAnswerChange = this.onFourthAnswerChange.bind(this);
         this.onCorrectAnswerChange = this.onCorrectAnswerChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onSelectedAnswerChange = this.onSelectedAnswerChange.bind(this);
+        this.onQuestionChange = this.onQuestionChange.bind(this);
     }
 
     render() {
@@ -39,14 +39,14 @@ class CreateQuizz extends React.Component {
                                     <div className="col-md-4 col-3">
                                         <div className="list-group" id="list-tab" role="tablist">
                                         {this.props.quizz.map((item, index) => (
-                                            <a className={'list-group-item list-group-item-action' + (index === this.state.selectedAnswer ? ' active' : '')}
+                                            <a className={'list-group-item list-group-item-action' + (index === this.state.selectedQuestion ? ' active' : '')}
                                                 id={index}
                                                 key={index}
                                                 data-toggle="list"
                                                 href={'#item-' + index}
                                                 role="tab"
                                                 aria-controls={'item-' + index}
-                                                onClick={this.onSelectedAnswerChange}
+                                                onClick={this.onQuestionChange}
                                             >
                                                 {item.title.slice(0, 26) + (item.title.length > 25 ? '...' : '')}
                                             </a>
@@ -56,7 +56,7 @@ class CreateQuizz extends React.Component {
                                     <div className="col-md-8 col-9">
                                         <div className="tab-content" id="nav-tabContent">
                                             {this.props.quizz.map((item, index) => (
-                                                <div className={'tab-pane fade' + (index === this.state.selectedAnswer ? ' show active' : '')}
+                                                <div className={'tab-pane fade' + (index === this.state.selectedQuestion ? ' show active' : '')}
                                                     id={index}
                                                     key={index}
                                                     role="tabpanel"
@@ -236,9 +236,9 @@ class CreateQuizz extends React.Component {
         this.props.setQuizz(quizz);
     }
 
-    onSelectedAnswerChange(e) {
+    onQuestionChange(e) {
         this.setState({
-            selectedAnswer: parseInt(e.target.id)
+            selectedQuestion: parseInt(e.target.id)
         });
     }
 }
